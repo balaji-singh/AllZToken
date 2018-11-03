@@ -35,6 +35,12 @@ contract('AllzToken',function(accounts){
 			return tokenInstance.transfer(accounts[1],25000,{from: accounts[0]});
 		}).then(function(receipt){
 
+			assert.equal(receipt.logs.length,1,'triggers one event');
+			assert.equal(receipt.logs[0].event,'Transfer' 'Should be the "Transfer" event');
+			assert.equal(receipt.logs[0].args._form,accounts[0],'Logs the account the tokens are transfered from');
+			assert.equal(receipt.logs[0].args._to,accounts[1],'Logs the account the tokens are transfered to');
+			assert.equal(receipt.logs[0].args._value,25000,'Logs the account transfered ammount');
+			
 			return tokenInstance.balanceOf(accounts[1]);
 
 		}).then(function(balance){
